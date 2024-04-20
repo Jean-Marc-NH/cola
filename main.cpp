@@ -9,6 +9,7 @@ struct COLA {
     COLA();
     bool push(int);
     bool pop(int&);
+    void print();
 };
 
 
@@ -21,22 +22,34 @@ int main()
     for (int i = 0; i < 11; i++)
     {
         if (cola.push(i * 10)) {
-            cout << "Elemento insertado: " << i*10 << "\n";
+            cout << "Elemento insertado: " << i * 10 << "\n";
         }
-        else 
+        else
         {
             cout << "Cola llena\n";
         }
     }
 
+    cola.print();
+    cout << "\n";
+
     cola.pop(x);
 
-    cout << "Elemento eliminado: " << x << "\n";
+    cola.pop(x);
 
+    cola.pop(x);
+
+    cola.pop(x);
+
+    cola.print();
+    cout << "\n";
     cola.push(99);
 
+    cola.print();
 
-    for (int i = 0; i < 12; i++) 
+    cout << "\n ELIMINANDO TODO: \n";
+
+    for (int i = 0; i < 12; i++)
     {
         if (cola.pop(x))
         {
@@ -48,6 +61,8 @@ int main()
         }
     }
 
+
+    cout << "\n";
 }
 
 
@@ -56,7 +71,7 @@ COLA::COLA() {
     tail = head;
 }
 
-bool COLA::push(int x) 
+bool COLA::push(int x)
 {
     if (!head) {
         head = A;
@@ -67,7 +82,7 @@ bool COLA::push(int x)
 
     if (head < tail)
     {
-        if (tail < (A + 9)) 
+        if (tail < (A + 9))
         {
             tail++;
             *tail = x;
@@ -75,11 +90,11 @@ bool COLA::push(int x)
         }
         else
         {
-            if (head == A) 
+            if (head == A)
             {
                 return false;
             }
-            else 
+            else
             {
                 tail = A;
                 *tail = x;
@@ -95,7 +110,7 @@ bool COLA::push(int x)
     }
     else
     {
-        if (tail != (A + 9)) 
+        if (tail != (A + 9))
         {
             tail++;
             *tail = x;
@@ -110,7 +125,7 @@ bool COLA::push(int x)
     }
 }
 
-bool COLA::pop(int &x) 
+bool COLA::pop(int& x)
 {
     if (!head)return false;
     if (head < tail)
@@ -129,16 +144,44 @@ bool COLA::pop(int &x)
         }
         else
         {
-           x = *head;
-           head = A;
-           return true;
+            x = *head;
+            head = A;
+            return true;
         }
     }
-    else 
+    else
     {
         x = *head;
         head = NULL;
         tail = NULL;
         return true;
+    }
+}
+
+void COLA::print() 
+{ 
+    int* p = head;
+    while (true) {
+        if (p < tail) 
+        {
+            cout << *p << " ";
+            p++;
+        }
+        else if (p > tail)
+        {
+            if (p == A + 9) {
+                cout << *p << " ";
+                p = A;
+            }
+            else {
+                cout << *p << " ";
+                p++;
+            }
+        }
+        else 
+        {
+            cout << *p << " ";
+            break;
+        }
     }
 }
